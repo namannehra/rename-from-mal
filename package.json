@@ -1,0 +1,10 @@
+{
+    "private": true,
+    "name": "rename-from-mal",
+    "version": "0.0.0",
+    "bin": "index.js",
+    "dependencies": {
+        "entities": "^2.0.0",
+        "node-fetch": "^2.6.0"
+    }
+}

@@ -4,6 +4,7 @@
     "version": "0.0.0",
     "bin": "index.js",
     "dependencies": {
+        "chalk": "^3.0.0",
         "entities": "^2.0.0",
         "node-fetch": "^2.6.0"
     }

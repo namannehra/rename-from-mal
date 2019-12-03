@@ -5,6 +5,7 @@
 const fs = require('fs')
 const path = require('path')
 
+const chalk = require('chalk')
 const entities = require('entities')
 const fetch = require('node-fetch')
 
@@ -13,6 +14,10 @@ const fetch = require('node-fetch')
 process.on('unhandledRejection', error => {
     throw error
 })
+
+const greenTick = chalk.green.bold('\u2713')
+const redCross = chalk.red.bold('\u2717')
+const rightArrow = '\u2192'
 
 const getFileNames = async () => {
     const dirents = await fs.promises.readdir('./', { withFileTypes: true })
@@ -39,6 +44,16 @@ const getEpisodeNames = async showId => {
     return getEpisodeNamesFromSource(source)
 }
 
+const getMaxLength = strings => {
+    let max = 0
+    for (const string of strings) {
+        if (string.length > max) {
+            max = string.length
+        }
+    }
+    return max
+}
+
 (async () => {
 
     const showId = process.argv[2]
@@ -54,18 +69,33 @@ const getEpisodeNames = async showId => {
         throw new Error(`Files and episodes don't match. Files: ${fileNames.length}. Episode: ${episodeNames.length}.`)
     }
 
+    const maxFileNameLength = getMaxLength(fileNames)
     const maxEpisodeNumberLength = fileNames.length.toString().length
-
-    for (let i = 0; i < fileNames.length; i++) {
-        const fileName = fileNames[i]
-        const episodeName = episodeNames[i]
+    const newFileNames = fileNames.map((fileName, index) => {
+        const episodeNumber = (index + 1).toString().padStart(maxEpisodeNumberLength, 0)
+        const episodeName = episodeNames[index]
         const extension = path.extname(fileName)
-        const newFileName = (
-            `${folderName} - ${(i + 1).toString().padStart(maxEpisodeNumberLength, 0)} - ${episodeName}${extension}`
-        )
-        fs.promises.rename(fileName, newFileName).then(() => {
-            console.log(`${fileName} \u2192 ${newFileName}`)
-        })
+        return `${folderName} - ${episodeNumber} - ${episodeName}${extension}`
+    })
+    const maxNewFileNameLength = getMaxLength(newFileNames)
+
+    const renamePromises = fileNames.map(async (fileName, index) => {
+        const newFileName = newFileNames[index]
+        let error = null
+        try {
+            await fs.promises.rename(fileName, newFileName)
+        } catch (renameError) {
+            error = renameError
+        } finally {
+            const paddedFileName = fileName.padEnd(maxFileNameLength)
+            const paddedNewFileName = newFileName.padEnd(maxNewFileNameLength)
+            const status = error ? redCross : greenTick
+            return `${paddedFileName} ${rightArrow} ${paddedNewFileName} ${status}`
+        }
+    })
+
+    for await (const result of renamePromises) {
+        console.log(result)
     }
 
 })()

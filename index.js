@@ -64,7 +64,7 @@ const getEpisodeNames = async showId => {
             `${folderName} - ${(i + 1).toString().padStart(maxEpisodeNumberLength, 0)} - ${episodeName}${extension}`
         )
         fs.promises.rename(fileName, newFileName).then(() => {
-            console.log(`${fileName} -> ${newFileName}`)
+            console.log(`${fileName} \u2192 ${newFileName}`)
         })
     }
 

@@ -26,3 +26,9 @@ rename-from-mal 22297/Fate_stay_night__Unlimited_Blade_Works
 > FSN - 11.mkv → Fate-stay night- Unlimited Blade Works - 11 - A Visitor Approaches Lightly.mkv      ✓
 > FSN - 12.mkv → Fate-stay night- Unlimited Blade Works - 12 - The Final Choice.mkv                  ✓
 ```
+
+## Limitations
+
+- Doesn't work for shows with over 100 episodes
+
+- Doesn't work for shows that don't have episode list on http://myanimelist.net

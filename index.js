@@ -8,6 +8,7 @@ const path = require('path')
 const chalk = require('chalk')
 const entities = require('entities')
 const fetch = require('node-fetch')
+const yargsParser = require('yargs-parser')
 
 // Unhandled promise rejections are deprecated
 // https://nodejs.org/api/deprecations.html#deprecations_dep0018_unhandled_promise_rejections
@@ -56,7 +57,14 @@ const getMaxLength = strings => {
 
 (async () => {
 
-    const showId = process.argv[2]
+    const args = yargsParser(process.argv.slice(2), {
+        alias: {
+            dry: 'd'
+        },
+        boolean: 'dry',
+    })
+
+    const showId = args._[0]
     const folderName = path.basename(process.cwd())
 
     if (!showId) {
@@ -83,7 +91,9 @@ const getMaxLength = strings => {
         const newFileName = newFileNames[index]
         let error = null
         try {
-            await fs.promises.rename(fileName, newFileName)
+            if (!args.dry) {
+                await fs.promises.rename(fileName, newFileName)
+            }
         } catch (renameError) {
             error = renameError
         } finally {

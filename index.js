@@ -18,7 +18,7 @@ process.on('unhandledRejection', error => {
 
 const greenTick = chalk.green.bold('\u2713')
 const redCross = chalk.red.bold('\u2717')
-const rightArrow = '\u2192'
+const rightArrow = chalk.bold('\u2192')
 
 const getFileNames = async () => {
     const dirents = await fs.promises.readdir('./', { withFileTypes: true })

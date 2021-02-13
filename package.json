@@ -7,6 +7,6 @@
         "chalk": "^3.0.0",
         "entities": "^2.0.0",
         "node-fetch": "^2.6.1",
-        "yargs-parser": "^16.1.0"
+        "yargs-parser": "^18.1.2"
     }
 }

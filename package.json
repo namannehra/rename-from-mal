@@ -4,10 +4,17 @@
     "version": "0.0.0",
     "type": "module",
     "bin": "index.js",
+    "scripts": {
+        "check-format": "prettier --check .",
+        "format": "prettier --write ."
+    },
     "dependencies": {
         "chalk": "^5.0.1",
         "entities": "^4.3.0",
         "node-fetch": "^3.1.1",
         "yargs-parser": "^21.0.1"
+    },
+    "devDependencies": {
+        "prettier": "^2.6.2"
     }
 }

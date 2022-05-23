@@ -29,6 +29,6 @@ rename-from-mal 22297/Fate_stay_night__Unlimited_Blade_Works
 
 ## Limitations
 
-- Doesn't work for shows with over 100 episodes
+-   Doesn't work for shows with over 100 episodes
 
-- Doesn't work for shows that don't have episode list on MyAnimeList
+-   Doesn't work for shows that don't have episode list on MyAnimeList

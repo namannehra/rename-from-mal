@@ -1,20 +1,11 @@
 #!/usr/bin/env node
 
-'use strict'
-
-const fs = require('fs')
-const path = require('path')
-
-const chalk = require('chalk')
-const entities = require('entities')
-const fetch = require('node-fetch')
-const yargsParser = require('yargs-parser')
-
-// Unhandled promise rejections are deprecated
-// https://nodejs.org/api/deprecations.html#deprecations_dep0018_unhandled_promise_rejections
-process.on('unhandledRejection', error => {
-    throw error
-})
+import chalk from 'chalk'
+import { decodeHTML } from 'entities'
+import fs from 'fs/promises'
+import fetch from 'node-fetch'
+import path from 'path'
+import yargsParser from 'yargs-parser'
 
 const greenTick = chalk.green.bold('\u2713')
 const redCross = chalk.red.bold('\u2717')
